@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            position: relative;
+        }
+        .gif-container img {
+            width: 80%;
+            max-width: 300px;
+        }
+        h1 {
+            font-size: 24px;
+            text-shadow: 2px 2px 5px black;
+        }
+        .buttons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        button {
+            font-size: 18px;
+            padding: 12px 20px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        #yes {
+            background-color: #ff4081;
+            color: white;
+            transition: all 0.5s ease-in-out;
+        }
+        #no {
+            background-color: #ff5252;
+            color: white;
+        }
+        .message {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px black;
+        }
+        .thank-you {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            text-align: center;
+            color: white;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .thank-you img {
+            width: 80%;
+            max-width: 300px;
+        }
+        .thank-you h1 {
+            font-size: 24px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="proposalBox">
+        <!-- GIF that appears from the start -->
+        <div class="gif-container" id="mainGif">
+            <img id="gifImage" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ25uYnY3MnNlZm9hNmE5eXd3d3RtZHMzNWxpeXZtNjczMGJ5OTJqdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/wNk71OcVtOPncxNHVT/giphy.gif" alt="Cute Please GIF">
+        </div>
+        
+        <h1>Will You Be My Valentine? 💖</h1>
+        
+        <div class="buttons">
+            <button id="yes" onclick="acceptProposal()">Yes</button>
+            <button id="no" onclick="rejectProposal()">No</button>
+        </div>
+        
+        <div class="message" id="message"></div>
+    </div>
+
+    <!-- Thank You GIF when "Yes" is clicked -->
+    <div class="thank-you" id="thankYou">
+        <img src="https://media.giphy.com/media/fBMfsjAl7l7RYGJSpk/giphy.gif?cid=ecf05e47praa25wfr1yy6t71t2olr1mege3fr7opma52jjn6&ep=v1_stickers_related&rid=giphy.gif&ct=s" alt="Thank You GIF">
+        <h1>Yay! I love you too! ❤️💖</h1>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        const messages = [
+            "Are you sure? 😢",
+            "Think again... 🥺",
+            "One last chance!",
+            "Please say yes! 🥹",
+            "No is not an option now! 😏"
+        ];
+
+        function rejectProposal() {
+            let yesButton = document.getElementById("yes");
+            let noButton = document.getElementById("no");
+            let gifImage = document.getElementById("gifImage");
+
+            if (noClickCount < 5) {
+                document.getElementById("message").innerText = messages[noClickCount];
+                yesButton.style.fontSize = (18 + noClickCount * 5) + "px";
+                yesButton.style.padding = (12 + noClickCount * 3) + "px " + (20 + noClickCount * 3) + "px";
+                noClickCount++;
+            }
+
+            if (noClickCount === 5) {
+                noButton.style.display = "none"; // Hide "No" button
+                document.getElementById("message").innerText = "No is not an option now! 😏"; // Final message
+                gifImage.src = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDhyOTA4bHVkd3R6cWdlbXY4bW13bmZsbjNhb3lxY2VrYmFsa3g2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/MFkTITj69pMOPlbfeX/giphy.gif"; // Change GIF
+            }
+        }
+
+        function acceptProposal() {
+            document.getElementById("proposalBox").style.display = "none"; // Hide the question box
+            document.getElementById("thankYou").style.display = "flex"; // Show thank you GIF
+        }
+    </script>
+
+</body>
+</html>
